@@ -44,7 +44,7 @@ namespace PhotoColorizer
             var input = "{"
                 + "  \"image\": \"data://deeplearning/example_data/lincoln.jpg\"" // this should be changed to the image being loaded
                 + "}";
-            var client = new Client("simnLzihd3NUcUIv9sCGXja7NOI1");
+            var client = new Client("simnLzihd3NUcUIv9sCGXja7NOI1"); //change the API for it to be loaded from a JSON file not exposed to Github
             var algorithm = client.algo("deeplearning/ColorfulImageColorization/1.1.13");
             algorithm.setOptions(timeout: 300); // optional
             var response = algorithm.pipeJson<object>(input);
