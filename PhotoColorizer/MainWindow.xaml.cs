@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Algorithmia;
-
+using Newtonsoft.Json.Linq;
 
 namespace PhotoColorizer
 {
@@ -22,7 +23,11 @@ namespace PhotoColorizer
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
+
+
     {
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,11 +45,12 @@ namespace PhotoColorizer
         public static void PicColorize()
 
         {
+            JObject APIkey = JObject.Parse(File.ReadAllText(@"C: \Users\plgon\source\repos\PhotoColorizer\PhotoColorizer\APIkey.json"));
 
             var input = "{"
                 + "  \"image\": \"data://deeplearning/example_data/lincoln.jpg\"" // this should be changed to the image being loaded
                 + "}";
-            var client = new Client("simnLzihd3NUcUIv9sCGXja7NOI1"); //change the API for it to be loaded from a JSON file not exposed to Github
+            var client = new Client((string)APIkey["APIkey"]); //change the API for it to be loaded from a JSON file not exposed to Github
             var algorithm = client.algo("deeplearning/ColorfulImageColorization/1.1.13");
             algorithm.setOptions(timeout: 300); // optional
             var response = algorithm.pipeJson<object>(input);
