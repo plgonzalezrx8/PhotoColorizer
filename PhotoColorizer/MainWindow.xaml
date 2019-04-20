@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button Content="TempButton" HorizontalAlignment="Left" Margin="685,370,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Open File" HorizontalAlignment="Left" Margin="100,100,0,0" VerticalAlignment="Top" Width="75" Click="OpenFileBtn"/>
+        <TextBlock HorizontalAlignment="Left" Height="20" Margin="196,100,0,0" TextWrapping="Wrap" Text="No file selected" VerticalAlignment="Top" Width="300"
+                   x:Name="SelectedFile"/>
+
     </Grid>
 </Window>
