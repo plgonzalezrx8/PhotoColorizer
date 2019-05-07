@@ -18,34 +18,29 @@ using Algorithmia;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 
-namespace PhotoColorizer
-{
+namespace PhotoColorizer {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window {
+
+        string imageToUploadFilename = null;
 
 
-    {
+        public MainWindow() {
 
-
-        public MainWindow()
-        {
             InitializeComponent();
         }
 
 
 
-        public static void LoadImage()
-        {
+        public static void LoadImage() {
             //this is a method used to load the local image into memory that will be used for the algorithm
 
 
         }
 
-        public static void PicColorize()
-
-        {
+        public static void PicColorize() {
             JObject APIkey = JObject.Parse(File.ReadAllText(@"C:\Users\plgon\source\repos\PhotoColorizer\PhotoColorizer\APIkey.json"));
 
             var input = "{"
@@ -56,7 +51,7 @@ namespace PhotoColorizer
             algorithm.setOptions(timeout: 300); // optional
             var response = algorithm.pipeJson<object>(input);
             Console.WriteLine(response.result);
-            
+
         }
 
         public static void PicUploader() //uploads the picture to the algoritmia server
@@ -66,8 +61,7 @@ namespace PhotoColorizer
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click(object sender, RoutedEventArgs e) {
             //JObject APIkey = JObject.Parse(File.ReadAllText(@"C:\Users\plgon\source\repos\PhotoColorizer\PhotoColorizer\APIkey.json"));
             //var client = new Client((string)APIkey["APIkey"]); //change the API for it to be loaded from a JSON file not exposed to Github
             //var colorizer = client.dir("data://plgonzalezrx8/colorizer");
@@ -79,20 +73,26 @@ namespace PhotoColorizer
 
         }
 
-        private void OpenFileBtn(object sender, RoutedEventArgs e)
-        {
+        private void OpenFileBtn(object sender, RoutedEventArgs e) {
+
             string fileTypes = "JPG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|All files (*.*)|*.*";
             OpenFileDialog openDlg = new OpenFileDialog();
             openDlg.Filter = fileTypes;
             openDlg.Title = "Browse desired Image";
             openDlg.ShowDialog();
-            if (openDlg.FileName != "")
-            {
+
+            if (openDlg.FileName != "") {
                 SelectedFile.Text = openDlg.FileName;
-            } else
-            {
+                imageToUploadFilename = openDlg.FileName;
+
+            } else {
                 SelectedFile.Text = "No file selected";
+                imageToUploadFilename = null;
             }
+
+        }
+
+        private void Colorize_Click(object sender, RoutedEventArgs e) {
 
         }
     }
